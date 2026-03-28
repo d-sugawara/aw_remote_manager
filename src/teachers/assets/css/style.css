@@ -161,6 +161,7 @@ input[type="text"]:focus {
     align-items: center;
     background-color: #000;
     overflow: hidden;
+    cursor: pointer;
 }
 
 .capture-img {
@@ -237,4 +238,11 @@ input[type="text"]:focus {
     cursor: pointer;
     background: none;
     border: none;
+}
+
+.no-results {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 2rem;
+    color: var(--text-secondary);
 }

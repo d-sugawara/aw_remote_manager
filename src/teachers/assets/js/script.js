@@ -151,10 +151,7 @@ function rebuildGrid(students) {
 
     if (students.length === 0) {
         const msg = document.createElement("div");
-        msg.style.gridColumn = "1 / -1";
-        msg.style.textAlign = "center";
-        msg.style.padding = "2rem";
-        msg.style.color = "var(--text-secondary)";
+        msg.className = "no-results";
         msg.textContent = "該当する学生が見つかりません。";
         elements.grid.appendChild(msg);
         return;
@@ -205,7 +202,6 @@ function createStudentCard(student) {
     `;
 
     // クリックで拡大
-    capWrap.style.cursor = "pointer";
     capWrap.addEventListener("click", () => {
         const img = document.getElementById(`capture-img-${student.student_number}`);
         if (img && student.updated_at) {
