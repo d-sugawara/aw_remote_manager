@@ -65,4 +65,18 @@ class TeacherController extends Controller
 
         return response()->json(['message' => '画像が見つかりません'], 404);
     }
+
+    /**
+     * GET /api/teacher/filters
+     * 学籍番号の前方一致用フィルタ候補（先頭4文字）を返す
+     */
+    public function getFilters(): JsonResponse
+    {
+        // 学籍番号の先頭4文字を重複なしで取得
+        $prefixes = Student::selectRaw('DISTINCT(SUBSTRING(student_number, 1, 4)) as prefix')
+            ->orderBy('prefix', 'asc')
+            ->pluck('prefix');
+
+        return response()->json($prefixes);
+    }
 }

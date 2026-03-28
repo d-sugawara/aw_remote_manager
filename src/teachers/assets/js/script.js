@@ -31,10 +31,13 @@ const elements = {
 /**
  * 初期化処理
  */
-function init() {
-    // フィルタ入力
-    elements.filterInput.addEventListener("input", (e) => {
-        state.filterValue = e.target.value.trim();
+async function init() {
+    // フィルタリストの取得と生成
+    await fetchFilters();
+
+    // フィルタ変更
+    elements.filterInput.addEventListener("change", (e) => {
+        state.filterValue = e.target.value;
         fetchStudents(true); // 即時更新かつ再構築
     });
 
@@ -64,6 +67,30 @@ function init() {
             closeModal();
         }
     });
+}
+
+/**
+ * フィルタ候補（学籍番号の接頭辞）をサーバーから取得してセレクトボックスを生成
+ */
+async function fetchFilters() {
+    try {
+        const response = await fetch(`${API_BASE_URL}/teacher/filters`, { cache: "no-store" });
+        if (!response.ok) return;
+
+        const prefixes = await response.json();
+        
+        // すでに存在する「すべての対象を表示」以外のオプションをクリア
+        elements.filterInput.innerHTML = '<option value="">すべての対象を表示</option>';
+
+        prefixes.forEach(prefix => {
+            const option = document.createElement("option");
+            option.value = prefix;
+            option.textContent = `${prefix}系`; // 例: 25aw系
+            elements.filterInput.appendChild(option);
+        });
+    } catch (error) {
+        console.error("フィルタリストの取得に失敗しました:", error);
+    }
 }
 
 /**

@@ -1,17 +1,23 @@
 <!DOCTYPE html>
 <html lang="ja">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>学生画面表示モニタ</title>
     <link rel="stylesheet" href="./assets/css/style.css">
+    <script src="./assets/js/config.js" defer></script>
+    <script src="./assets/js/script.js" defer></script>
 </head>
+
 <body>
     <header class="app-header">
         <div class="header-content">
             <h1>学生画面表示モニタ</h1>
             <div class="controls">
-                <input type="text" id="prefix-filter" placeholder="学籍番号でフィルタ (例: 26aw)" maxlength="8" />
+                <select id="prefix-filter">
+                    <option value="">すべての対象を表示</option>
+                </select>
                 <button id="toggle-update" class="toggle-btn active">自動更新ON</button>
             </div>
         </div>
@@ -30,7 +36,6 @@
         </div>
     </div>
 
-    <script src="./assets/js/config.js"></script> <!-- Generate this from Teacher Settings UI -->
-    <script src="./assets/js/script.js"></script>
 </body>
+
 </html>

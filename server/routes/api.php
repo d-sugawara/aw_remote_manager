@@ -39,4 +39,5 @@ use App\Http\Controllers\Api\TeacherController;
 
 // 先生用ルート（現在は認証なし）
 Route::get('/teacher/students', [TeacherController::class, 'getStudents']);
+Route::get('/teacher/filters', [TeacherController::class, 'getFilters']);
 Route::get('/teacher/capture/{student_number}', [TeacherController::class, 'getCapture']);
