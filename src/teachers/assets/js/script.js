@@ -119,7 +119,7 @@ async function fetchStudents(forceRebuild = false) {
 
         const response = await fetch(url, { cache: "no-store" });
         if (!response.ok) {
-            console.error("Failed to fetch students data");
+            console.error("学生データの取得に失敗しました");
             return;
         }
 
@@ -138,7 +138,7 @@ async function fetchStudents(forceRebuild = false) {
         }
 
     } catch (error) {
-        console.error("Error fetching students:", error);
+        console.error("学生データの取得中にエラーが発生しました:", error);
     }
 }
 
@@ -200,7 +200,7 @@ function createStudentCard(student) {
     info.innerHTML = `
         <span class="student-name">${student.student_number} ${escapeHtml(student.name)}</span>
         <span class="student-status ${student.updated_at ? 'online' : 'offline'}" id="status-${student.student_number}">
-            ${student.updated_at ? 'Online' : 'Offline'}
+            ${student.updated_at ? 'オンライン' : 'オフライン'}
         </span>
     `;
 
@@ -249,7 +249,7 @@ function updateImagesOnly(students) {
 
                 if (statusEl) {
                     statusEl.className = "student-status online";
-                    statusEl.textContent = "Online";
+                    statusEl.textContent = "オンライン";
                 }
             } else {
                 // オフラインになった場合
@@ -261,7 +261,7 @@ function updateImagesOnly(students) {
                 `;
                 if (statusEl) {
                     statusEl.className = "student-status offline";
-                    statusEl.textContent = "Offline";
+                    statusEl.textContent = "オフライン";
                 }
             }
         }

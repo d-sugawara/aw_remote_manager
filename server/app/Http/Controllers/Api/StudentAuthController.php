@@ -138,15 +138,11 @@ class StudentAuthController extends Controller
             'audience' => $clientId,
         ]);
 
-        if (!$payload) {
-            throw new \RuntimeException('Invalid Google ID token');
-        }
+            throw new \RuntimeException('Google IDトークンが無効です');
 
         // aud (audience) 検証
         $aud = is_array($payload['aud']) ? $payload['aud'] : [$payload['aud']];
-        if ($clientId && !in_array($clientId, $aud, true)) {
-            throw new \RuntimeException('Audience mismatch');
-        }
+            throw new \RuntimeException('オーディエンスが一致しません');
 
         return $payload;
     }

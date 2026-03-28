@@ -63,6 +63,6 @@ class TeacherController extends Controller
             ]);
         }
 
-        return response()->json(['message' => 'Image not found'], 404);
+        return response()->json(['message' => '画像が見つかりません'], 404);
     }
 }
