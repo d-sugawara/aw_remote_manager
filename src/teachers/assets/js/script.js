@@ -44,7 +44,7 @@ async function init() {
     // 自動更新ボタン
     elements.toggleUpdateBtn.addEventListener("click", () => {
         state.isAutoUpdateSelected = !state.isAutoUpdateSelected;
-        
+
         if (state.isAutoUpdateSelected) {
             elements.toggleUpdateBtn.textContent = "自動更新ON";
             elements.toggleUpdateBtn.classList.add("active");
@@ -78,14 +78,14 @@ async function fetchFilters() {
         if (!response.ok) return;
 
         const prefixes = await response.json();
-        
+
         // すでに存在する「すべての対象を表示」以外のオプションをクリア
         elements.filterInput.innerHTML = '<option value="">すべての対象を表示</option>';
 
         prefixes.forEach(prefix => {
             const option = document.createElement("option");
             option.value = prefix;
-            option.textContent = `${prefix}系`; // 例: 25aw系
+            option.textContent = prefix;
             elements.filterInput.appendChild(option);
         });
     } catch (error) {
@@ -151,11 +151,11 @@ async function fetchStudents(forceRebuild = false) {
         }
 
         const data = await response.json();
-        
+
         // 前回のリストと学生番号の並びが違う場合（人数増減やフィルタ変更時）は再構築
         const currentIds = data.map(s => s.student_number).join(",");
         const oldIds = state.currentStudents.map(s => s.student_number).join(",");
-        
+
         if (forceRebuild || currentIds !== oldIds) {
             rebuildGrid(data);
             state.currentStudents = data;
@@ -187,7 +187,7 @@ function rebuildGrid(students) {
     students.forEach(student => {
         const card = createStudentCard(student);
         elements.grid.appendChild(card);
-        
+
         if (student.updated_at) {
             state.lastTimestamps[student.student_number] = student.updated_at;
         }
@@ -238,7 +238,7 @@ function createStudentCard(student) {
 
     card.appendChild(capWrap);
     card.appendChild(info);
-    
+
     return card;
 }
 
@@ -252,17 +252,17 @@ function updateImagesOnly(students) {
 
         if (currentTime !== lastTime) {
             state.lastTimestamps[student.student_number] = currentTime;
-            
+
             const capWrap = document.getElementById(`capture-container-${student.student_number}`);
             const statusEl = document.getElementById(`status-${student.student_number}`);
-            
+
             if (!capWrap) return;
 
             if (currentTime) {
                 const time = new Date(currentTime).getTime();
                 const imgSrc = `${student.image_url}?t=${time}`;
                 const img = document.getElementById(`capture-img-${student.student_number}`);
-                
+
                 if (img) {
                     img.src = imgSrc;
                 } else {
