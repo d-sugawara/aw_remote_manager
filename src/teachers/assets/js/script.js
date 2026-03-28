@@ -25,7 +25,8 @@ let updateIntervalId = null;
 const elements = {
     grid: document.getElementById("students-grid"),
     filterInput: document.getElementById("prefix-filter"),
-    toggleUpdateBtn: document.getElementById("toggle-update")
+    toggleUpdateBtn: document.getElementById("toggle-update"),
+    loading: document.getElementById("loading")
 };
 
 /**
@@ -59,7 +60,10 @@ async function init() {
 
     // 初回読み込み
     startAutoUpdate();
-    fetchStudents(true);
+    await fetchStudents(true);
+    
+    // 描画完了後にローディングを非表示
+    elements.loading.classList.add("hidden");
 
     // モーダル背景または閉じるボタンで閉じる
     document.getElementById("image-modal").addEventListener("click", (e) => {
