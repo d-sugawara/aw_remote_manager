@@ -1,7 +1,7 @@
 <?php
 
-use App\Http\Controllers\CaptureController;
-use App\Http\Controllers\StudentAuthController;
+use App\Http\Controllers\Api\CaptureController;
+use App\Http\Controllers\Api\StudentAuthController;
 use App\Http\Middleware\JwtAuthenticate;
 use Illuminate\Support\Facades\Route;
 
@@ -35,7 +35,7 @@ Route::middleware(JwtAuthenticate::class)->group(function () {
 |--------------------------------------------------------------------------
 */
 
-use App\Http\Controllers\TeacherController;
+use App\Http\Controllers\Api\TeacherController;
 
 // 先生用ルート（現在は認証なし）
 Route::get('/teacher/students', [TeacherController::class, 'getStudents']);
