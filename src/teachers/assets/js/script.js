@@ -1,4 +1,29 @@
-const API_BASE_URL = 'http://localhost/aw_remote_manager/server/public/api';
+const SECRET_KEY_STR = 'AwRemoteManagerSecretKey202611!!';
+let AppConfig = {
+    base_url: 'http://localhost/aw_remote_manager/server/public/api' // Fallback
+};
+
+if (typeof ENCRYPTED_CONFIG !== 'undefined') {
+    try {
+        const key = CryptoJS.enc.Utf8.parse(SECRET_KEY_STR);
+        const raw = CryptoJS.enc.Base64.parse(ENCRYPTED_CONFIG);
+        const iv = CryptoJS.lib.WordArray.create(raw.words.slice(0, 4), 16);
+        const ciphertext = CryptoJS.lib.WordArray.create(raw.words.slice(4), raw.sigBytes - 16);
+        
+        const decrypted = CryptoJS.AES.decrypt({ ciphertext: ciphertext }, key, {
+            iv: iv,
+            mode: CryptoJS.mode.CBC,
+            padding: CryptoJS.pad.Pkcs7
+        });
+        
+        const jsonStr = decrypted.toString(CryptoJS.enc.Utf8);
+        Object.assign(AppConfig, JSON.parse(jsonStr));
+    } catch (e) {
+        console.error('Failed to decrypt config.js. Using fallback.', e);
+    }
+}
+
+const API_BASE_URL = AppConfig.base_url;
 
 // 状態管理
 let state = {

@@ -7,3 +7,4 @@ google-auth-oauthlib==1.2.1
 google-auth==2.38.0
 pyinstaller==6.11.1
 win10toast==0.9
+pycryptodome==3.20.0
