@@ -53,18 +53,15 @@ class SettingsController extends Controller
     public function exportTeacher()
     {
         $settings = $this->loadSettings();
-        // 先生側も必要な情報を埋める
+        
         $payload = [
             'base_url' => rtrim($settings['base_url'], '/') . '/api',
             'google_client_id' => $settings['google_client_id'],
-            // 教員にsecretが必要かは要件次第ですが、統一のため含める
-            'google_client_secret' => $settings['google_client_secret'],
         ];
 
-        $encrypted = $this->encryptPayload($payload);
-        
-        // JSファイルとして出力 (変数に代入するフォーマット)
-        $jsContent = "const ENCRYPTED_CONFIG = \"{$encrypted}\";\n";
+        // 秘匿情報（secret）が含まれなくなったため、暗号化せずそのままJSオブジェクトとして出力
+        $json = json_encode($payload, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
+        $jsContent = "const CONFIG = {$json};\n";
 
         return response($jsContent, 200, [
             'Content-Type' => 'application/javascript',
