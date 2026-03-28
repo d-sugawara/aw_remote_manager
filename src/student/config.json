@@ -1,0 +1,8 @@
+{
+    "base_url": "http://localhost/aw_remote_manager/server/public",
+    "token": "",
+    "student_number": "",
+    "language": "ja",
+    "google_client_id": "806018829414-k7prh0j8e72mrhh8ltdptiv29ra3fd05.apps.googleusercontent.com",
+    "google_client_secret": "YOUR_CLIENT_SECRET"
+}

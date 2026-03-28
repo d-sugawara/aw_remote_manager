@@ -1,0 +1,240 @@
+:root {
+    --bg-color: #121212;
+    --panel-bg: #1e1e1e;
+    --text-primary: #ffffff;
+    --text-secondary: #a0a0a0;
+    --accent-color: #3b82f6;
+    --accent-hover: #2563eb;
+    --border-color: #333333;
+    --danger-color: #ef4444;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-primary);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.app-header {
+    background-color: var(--panel-bg);
+    border-bottom: 1px solid var(--border-color);
+    padding: 1rem 2rem;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1800px;
+    margin: 0 auto;
+}
+
+h1 {
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+.controls {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+
+input[type="text"] {
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    border: 1px solid var(--border-color);
+    background-color: var(--bg-color);
+    color: var(--text-primary);
+    font-size: 1rem;
+    outline: none;
+    transition: border-color 0.2s;
+    width: 250px;
+}
+
+input[type="text"]:focus {
+    border-color: var(--accent-color);
+}
+
+.toggle-btn {
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    border: none;
+    background-color: var(--border-color);
+    color: var(--text-primary);
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.toggle-btn.active {
+    background-color: var(--accent-color);
+}
+
+.toggle-btn.active:hover {
+    background-color: var(--accent-hover);
+}
+
+.app-body {
+    flex: 1;
+    padding: 1.5rem;
+    max-width: 1800px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+.students-grid {
+    display: grid;
+    /* 1画面に最大49名（7列x7行）を想定。画面幅に応じて可変 */
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1rem;
+}
+
+.student-card {
+    background-color: var(--panel-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.2s, box-shadow 0.2s;
+    aspect-ratio: 4 / 3;
+    position: relative;
+}
+
+.student-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+    border-color: var(--accent-color);
+}
+
+.student-info {
+    padding: 0.5rem;
+    background-color: rgba(30, 30, 30, 0.9);
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    backdrop-filter: blur(4px);
+    z-index: 10;
+}
+
+.student-name {
+    font-size: 0.85rem;
+    font-weight: 600;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.student-status {
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+}
+
+.student-status.online {
+    color: #4ade80; /* green */
+}
+
+.student-status.offline {
+    color: var(--text-secondary);
+}
+
+.capture-container {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #000;
+    overflow: hidden;
+}
+
+.capture-img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+}
+
+.no-capture {
+    text-align: center;
+    padding: 1rem;
+    color: var(--text-secondary);
+    font-size: 0.85rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.no-capture-icon {
+    font-size: 2rem;
+    opacity: 0.5;
+}
+
+/* Error message display */
+.error-banner {
+    background-color: var(--danger-color);
+    color: white;
+    text-align: center;
+    padding: 0.5rem;
+    display: none;
+    font-weight: 500;
+}
+
+/* Modal Styles */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.85);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal-overlay.active {
+    display: flex;
+}
+
+.modal-img-container {
+    max-width: 90vw;
+    max-height: 90vh;
+    position: relative;
+}
+
+.modal-img {
+    max-width: 100%;
+    max-height: 90vh;
+    object-fit: contain;
+    border-radius: 8px;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.8);
+}
+
+.modal-close {
+    position: absolute;
+    top: -40px;
+    right: 0;
+    color: white;
+    font-size: 2rem;
+    cursor: pointer;
+    background: none;
+    border: none;
+}
